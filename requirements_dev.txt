@@ -1,4 +1,4 @@
-pip==8.1.2
+pip==9.0.1
 bumpversion==0.5.3
 wheel==0.29.0
 watchdog==0.8.3
@@ -9,5 +9,7 @@ coverage==4.1
 # https://github.com/sphinx-doc/sphinx/issues/3212
 docutils==0.12
 Sphinx==1.4.8
-
 pytest==2.9.2
+pytest-catchlog==1.2.2
+pytest-mock==1.5.0
+responses==0.5.1

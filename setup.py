@@ -12,10 +12,14 @@ with open('HISTORY.rst') as history_file:
 requirements = [
     'cliff',
     'datakit-core',
+    'python-gitlab==0.19'
 ]
 
 test_requirements = [
-    'pytest'
+    'pytest',
+    'pytest-catchlog',
+    'pytest-mock==1.5.0',
+    'responses==0.5.1'
 ]
 
 setup(
@@ -25,7 +29,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author="Serdar Tumgoren",
     author_email='stumgoren@ap.org',
-    url='https://github.com/zstumgoren/datakit-gitlab',
+    url='https://gitlab.inside.ap.org:newsapps/datakit-gitlab',
     packages=[
         'datakit_gitlab',
     ],
@@ -34,7 +38,7 @@ setup(
     include_package_data=True,
     entry_points={
         'datakit.plugins': [
-            #'fancyplugin:greet= datakit_gitlab.greet:Greet',
+            'gitlab:integrate= datakit_gitlab:Integrate',
         ]
     },
     install_requires=requirements,
