@@ -16,7 +16,7 @@ class Integrate(CommandHelpers, Command):
         proj_slug = self.get_project_slug()
         project = self.get_gitlab_project_client(proj_slug)
         if project.exists():
-            msg = "\nERROR: {} already exists on Gitlab!".format(project.url)
+            msg = "\nERROR: {} already exists on Gitlab!".format(proj_slug)
             self.log.info(msg)
         else:
             # Guard against re-initialization

@@ -1,9 +1,6 @@
-import os
 from unittest import mock
 
 from ..conftest import (
-    # create_plugin_config,
-    # create_project_config,
     dir_contents,
     read_fixture
 )
@@ -13,7 +10,7 @@ import responses
 
 
 @responses.activate
-def test_project_buildout(mocker, caplog, fake_project, monkeypatch, tmpdir):
+def test_project_buildout(mocker, caplog, tmpdir):
     "Integrate should auto-generate Gitlab project"
     # Mock search query to check if project already exists
     responses.add(
@@ -60,11 +57,19 @@ def test_project_buildout(mocker, caplog, fake_project, monkeypatch, tmpdir):
     alert_msg = 'Project created: \n\thttps://gitlab.inside.ap.org/data/fake-project'
     assert alert_msg in caplog.text
 
-    ## NOTE: Response if project exists
-    #responses.add(
-    #    responses.POST,
-    #    'https://gitlab.inside.ap.org/api/v3/projects',
-    #    body=read_fixture('project-create_success'),
-    #    status=400,
-    #    content_type='application/json'
-    #)
+
+@responses.activate
+def test_project_already_exists(caplog):
+    "Integrate should fail if project of same name already exists on Gitlab"
+    # Mock search query to check if project already exists
+    responses.add(
+        responses.GET,
+        'https://gitlab.inside.ap.org/api/v3/projects/search/fake-project',
+        body=read_fixture('project_search-already_exists'),
+        status=200,
+        content_type='application/json'
+    )
+    cmd = Integrate(None, None, cmd_name='gitlab:integrate')
+    parsed_args = mock.Mock()
+    cmd.run(parsed_args)
+    assert 'ERROR: fake-project already exists on Gitlab!' in caplog.text
