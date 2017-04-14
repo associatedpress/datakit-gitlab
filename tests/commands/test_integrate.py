@@ -57,6 +57,8 @@ def test_project_buildout(mocker, caplog, fake_project, monkeypatch, tmpdir):
         mocker.call(['git', 'push', '-u', 'origin', 'master'])
     ]
     assert mock_subprocess.call_args_list == expected_git_calls
+    alert_msg = 'Project created: \n\thttps://gitlab.inside.ap.org/data/fake-project'
+    assert alert_msg in caplog.text
 
     ## NOTE: Response if project exists
     #responses.add(
