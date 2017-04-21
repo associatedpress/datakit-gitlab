@@ -28,3 +28,21 @@ class GitlabProject:
             'namespace_id': grp.id
         })
         return proj
+
+    def add_issue(self, opts):
+        project = self.get_project()
+        user = self.get_current_user()
+        opts['assignee_id'] = user.id
+        return project.issues.create(opts)
+
+    def get_project(self):
+        try:
+            return self.project
+        except AttributeError:
+            arg = "{}/{}".format(self.namespace, self.project_slug)
+            self.project = self.client.projects.get(arg)
+            return self.project
+
+    def get_current_user(self):
+        self.client.auth()
+        return self.client.user

@@ -39,6 +39,7 @@ setup(
     entry_points={
         'datakit.plugins': [
             'gitlab:integrate= datakit_gitlab:Integrate',
+            'gitlab:issues:add= datakit_gitlab:issues.Add',
         ]
     },
     install_requires=requirements,
