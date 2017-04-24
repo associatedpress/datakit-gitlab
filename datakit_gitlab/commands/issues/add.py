@@ -14,8 +14,8 @@ class Add(ProjectMixin, CommandHelpers, Command):
     def get_parser(self, prog_name):
         parser = super(Add, self).get_parser(prog_name)
         parser.add_argument(
-            '--t',
-            'title',
+            '-t',
+            '--title',
             help="Short title for Issue"
         )
         return parser
