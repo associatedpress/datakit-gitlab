@@ -42,3 +42,4 @@ def test_add_issue(mocker, caplog, tmpdir):
     parsed_args.title = "Do some data stuff"
     cmd.run(parsed_args)
     assert re.search(r'Created issue #\d: https://gitlab.inside.ap.org/data/fake-project/issues/\d', caplog.text)
+    assert 'assignee_id' in responses.calls[2].request.body
