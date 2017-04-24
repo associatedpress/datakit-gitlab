@@ -33,7 +33,7 @@ Creating issues
 You can quickly create a new issue using the following command::
 
   $ cd foo/
-  $ datakit gitlab:issues:add --title Some new issue
+  $ datakit gitlab:issues:add --title "Some new issue"
 
 
 Credits

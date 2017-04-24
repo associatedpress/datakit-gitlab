@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
-import os
-
 from cliff.command import Command
 from datakit import CommandHelpers
 
-from datakit_gitlab.git import Git
 from datakit_gitlab.project_mixin import ProjectMixin
 
 
@@ -16,7 +13,7 @@ class Add(ProjectMixin, CommandHelpers, Command):
         parser.add_argument(
             '-t',
             '--title',
-            help="Short title for Issue"
+            help="Short title for Issue that must be wrapped in quotes"
         )
         return parser
 
