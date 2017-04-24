@@ -17,12 +17,24 @@ Usage
 
 This plugin should be used in tandem with `datakit-data`_.
 
+Project creation
+-----------------
+
 After installing the plugin::
 
-  # asuming you create a project called Foo
+  # Assuming you create a local project called Foo
   $ datakit project:create 
   $ cd foo/
   $ datakit gitlab:integrate
+
+Creating issues
+---------------
+
+You can quickly create a new issue using the following command::
+
+  $ cd foo/
+  $ datakit gitlab:issues:add "Some new issue"
+
 
 Credits
 ========

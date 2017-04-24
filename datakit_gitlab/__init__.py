@@ -5,6 +5,7 @@ __email__ = 'stumgoren@ap.org'
 __version__ = '0.1.0'
 
 from .commands.integrate import Integrate
+from .commands import issues
 
 # Squelch the horrifically verbose SSL warnings
 import requests
