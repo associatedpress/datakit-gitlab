@@ -15,7 +15,7 @@ Features
 Usage
 =====
 
-This plugin should be used in tandem with `datakit-data`_.
+This plugin should be used in tandem with `datakit-project`_.
 
 Project creation
 -----------------
@@ -42,7 +42,7 @@ Credits
 This plugin was created with Cookiecutter_ and the `associatedpress/cookiecutter-datakit-plugin`_ 
 project template (a modified version of the most excellent `audreyr/cookiecutter-pypackage`_).
 
-.. _datakit-data: https://datakit-data.readthedocs.io/en/latest/
+.. _datakit-project: https://datakit-project.readthedocs.io/en/latest/
 .. _datakit: https://github.com/associatedpress/datakit-core
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`associatedpress/cookiecutter-datakit-plugin`: https://github.com/associatedpress/cookiecutter-datakit-plugin
