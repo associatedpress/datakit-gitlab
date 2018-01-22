@@ -24,7 +24,7 @@ test_requirements = [
 
 setup(
     name='datakit-gitlab',
-    version='0.1.0',
+    version='0.2.0',
     description="Commands to manage project integration with Gitlab.",
     long_description=readme + '\n\n' + history,
     author="Serdar Tumgoren",
@@ -38,8 +38,8 @@ setup(
     include_package_data=True,
     entry_points={
         'datakit.plugins': [
-            'gitlab:integrate= datakit_gitlab:Integrate',
-            'gitlab:issues:add= datakit_gitlab:issues.Add',
+            'gitlab integrate= datakit_gitlab:Integrate',
+            'gitlab issues add= datakit_gitlab:issues.Add',
         ]
     },
     install_requires=requirements,
@@ -56,6 +56,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     test_suite='tests',
     tests_require=test_requirements

@@ -20,7 +20,7 @@ class Integrate(CommandHelpers, Command):
             self.log.info(msg)
         else:
             # Guard against re-initialization
-            if Git.is_repository() == False:
+            if Git.is_repository() is False:
                 self.log.info("Running Git initialization...")
                 Git.init()
                 Git.add()

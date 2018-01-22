@@ -1,9 +1,6 @@
 from unittest import mock
 
-from ..conftest import (
-    dir_contents,
-    read_fixture
-)
+from ..conftest import read_fixture
 
 from datakit_gitlab import Integrate
 import responses
@@ -41,10 +38,9 @@ def test_project_buildout(mocker, caplog, tmpdir):
         'datakit_gitlab.git.subprocess.check_output',
         autospec=True,
     )
-    cmd = Integrate(None, None, cmd_name='gitlab:integrate')
+    cmd = Integrate(None, None, cmd_name='gitlab integrate')
     parsed_args = mock.Mock()
     cmd.run(parsed_args)
-    contents = dir_contents(tmpdir.strpath)
     assert 'Running Git initialization' in caplog.text
     expected_git_calls = [
         mocker.call(['git', 'init']),
@@ -69,7 +65,7 @@ def test_project_already_exists(caplog):
         status=200,
         content_type='application/json'
     )
-    cmd = Integrate(None, None, cmd_name='gitlab:integrate')
+    cmd = Integrate(None, None, cmd_name='gitlab integrate')
     parsed_args = mock.Mock()
     cmd.run(parsed_args)
     assert 'ERROR: fake-project already exists on Gitlab!' in caplog.text

@@ -1,10 +1,7 @@
 import re
 from unittest import mock
 
-from ..conftest import (
-    dir_contents,
-    read_fixture
-)
+from ..conftest import read_fixture
 
 from datakit_gitlab.commands.issues import Add
 import responses
@@ -37,7 +34,7 @@ def test_add_issue(mocker, caplog, tmpdir):
         status=201,
         content_type='application/json'
     )
-    cmd = Add(None, None, cmd_name='gitlab:issues:add')
+    cmd = Add(None, None, cmd_name='gitlab issues add')
     parsed_args = mock.Mock()
     parsed_args.title = "Do some data stuff"
     cmd.run(parsed_args)

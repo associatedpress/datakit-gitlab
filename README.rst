@@ -23,9 +23,9 @@ Project creation
 After installing the plugin::
 
   # Assuming you create a local project called Foo
-  $ datakit project:create 
+  $ datakit project create
   $ cd foo/
-  $ datakit gitlab:integrate
+  $ datakit gitlab integrate
 
 Creating issues
 ---------------
@@ -33,7 +33,7 @@ Creating issues
 You can quickly create a new issue using the following command::
 
   $ cd foo/
-  $ datakit gitlab:issues:add --title "Some new issue"
+  $ datakit gitlab issues add --title "Some new issue"
 
 
 Credits

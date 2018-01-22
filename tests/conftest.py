@@ -1,6 +1,6 @@
 import os
 import pytest
-from datakit.utils import mkdir_p, write_json, read_json
+from datakit.utils import mkdir_p, write_json
 
 
 @pytest.fixture
@@ -29,6 +29,7 @@ def bootstrap_temp_env(dkit_home, fake_project, monkeypatch, tmpdir):
             "default_namespace": "data"
         }
     )
+
 
 def create_readme(fake_project_pth):
     readme = os.path.join(fake_project_pth, "README.md")
