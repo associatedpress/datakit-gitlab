@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -30,16 +30,12 @@ setup(
     author="Serdar Tumgoren",
     author_email='stumgoren@ap.org',
     url='https://gitlab.inside.ap.org:newsapps/datakit-gitlab',
-    packages=[
-        'datakit_gitlab',
-    ],
-    package_dir={'datakit_gitlab':
-                 'datakit_gitlab'},
+    packages=find_packages(),
     include_package_data=True,
     entry_points={
         'datakit.plugins': [
-            'gitlab integrate= datakit_gitlab:Integrate',
-            'gitlab issues add= datakit_gitlab:issues.Add',
+            'gitlab integrate=datakit_gitlab:Integrate',
+            'gitlab issues add=datakit_gitlab:issues.Add',
         ]
     },
     install_requires=requirements,
