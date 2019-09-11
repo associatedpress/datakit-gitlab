@@ -1,5 +1,5 @@
 ===============================
-datakit-gitlab
+DataKit Gitlab plugin
 ===============================
 
 Commands to manage project integration with Gitlab.
