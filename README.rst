@@ -21,7 +21,7 @@ Assuming you have datakit_ installed, run the following to install the
 
   $ pip install -e git+https://github.com/associatedpress/datakit-gitlab#egg=datakit-gitlab
 
-Create a configuration file at ``~/.datakit/plugins/datakit-gitlab/config.json`` with the following structure:
+Create a configuration file at ``~/.datakit/plugins/datakit-gitlab/config.json`` with the following structure::
 
     {
       "gitlab_url": "GITLAB_URL",
