@@ -30,7 +30,9 @@ Create a configuration file at ``~/.datakit/plugins/datakit-gitlab/config.json``
     }
 
 ``GITLAB_URL`` is the URL of your Gitlab instance.
+
 ``YOUR_NAMESPACE`` is your user name or the organization namespace.
+
 ``PERSONAL_ACCESS_TOKEN`` is your Personal Access Token.
 
 Gitlab Personal Access Tokens can be obtained under User Settings > Access Tokens. You will need to make a token with both api and sudo privileges. More information on Gitlab Personal Access Tokens can be found here: https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html
