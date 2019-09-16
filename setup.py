@@ -16,7 +16,7 @@ from setuptools import setup, find_packages
 requirements = [
     'cliff',
     'datakit-core',
-    'python-gitlab'
+    'python-gitlab>=1.5.0'
 ]
 
 test_requirements = [
