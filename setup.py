@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+DataKit GitLab plugin
+---------------------
+
+`datakit-gitlab` is a plugin for `datakit <https://datakit.ap.org/>`_ to
+streamline the process of integrating your project with a GitLab repository.
+
+For more information, see `the project's home page <https://github.com/associatedpress/datakit-gitlab>`_.
+"""
+
 from setuptools import setup, find_packages
-
-with open('README.rst') as readme_file:
-    readme = readme_file.read()
-
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
 
 requirements = [
     'cliff',
@@ -26,7 +30,7 @@ setup(
     name='datakit-gitlab',
     version='0.2.0',
     description="Commands to manage project integration with Gitlab.",
-    long_description=readme + '\n\n' + history,
+    long_description=__doc__,
     author="Serdar Tumgoren",
     author_email='stumgoren@ap.org',
     url='https://github.com/associatedpress/datakit-gitlab',
