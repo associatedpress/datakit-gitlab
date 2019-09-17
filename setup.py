@@ -29,7 +29,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author="Serdar Tumgoren",
     author_email='stumgoren@ap.org',
-    url='https://gitlab.inside.ap.org:newsapps/datakit-gitlab',
+    url='https://github.com/associatedpress/datakit-gitlab',
     packages=find_packages(),
     include_package_data=True,
     entry_points={
