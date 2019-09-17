@@ -19,7 +19,7 @@ Setup instructions
 Assuming you have datakit_ installed, run the following to install the
 `datakit-gitlab` plugin::
 
-  $ pip install -e git+https://github.com/associatedpress/datakit-gitlab#egg=datakit-gitlab
+  $ pip install datakit-gitlab
 
 Create a configuration file at ``~/.datakit/plugins/datakit-gitlab/config.json`` with the following structure::
 
