@@ -25,13 +25,13 @@ class Integrate(CommandHelpers, Command):
                 Git.init()
                 Git.add()
                 Git.commit()
-                resp = project.create()
-                Git.remote_add_origin(resp.ssh_url_to_repo)
-                Git.push()
-                alert_msg = 'Project created: \n\t{}'.format(resp.web_url)
-                self.log.info(alert_msg)
             else:
                 self.log.info("Repo has already been initialized!")
+            resp = project.create()
+            Git.remote_add_origin(resp.ssh_url_to_repo)
+            Git.push()
+            alert_msg = 'Project created: \n\t{}'.format(resp.web_url)
+            self.log.info(alert_msg)
 
     def get_project_slug(self):
         return os.path.basename(os.getcwd())

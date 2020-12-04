@@ -2,6 +2,17 @@
 History
 =======
 
+0.4.0
+-----
+
+* Retry transient HTTP errors in project creation
+* Existing git repos can now be 'hooked up'
+
+0.3.0
+-----
+
+* Upgrade to Gitlab API v4
+
 0.2.0
 -----
 

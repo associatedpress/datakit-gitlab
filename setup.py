@@ -16,7 +16,7 @@ from setuptools import setup, find_packages
 requirements = [
     'cliff',
     'datakit-core',
-    'python-gitlab>=1.5.0'
+    'python-gitlab>=2.5.0'
 ]
 
 test_requirements = [
@@ -28,7 +28,7 @@ test_requirements = [
 
 setup(
     name='datakit-gitlab',
-    version='0.3.0',
+    version='0.4.0',
     description="Commands to manage project integration with Gitlab.",
     long_description=__doc__,
     author="Serdar Tumgoren",
