@@ -2,6 +2,12 @@
 History
 =======
 
+0.4.0
+-----
+
+* Retry transient HTTP errors in project creation
+* Existing git repos can now be 'hooked up'
+
 0.3.0
 -----
 
