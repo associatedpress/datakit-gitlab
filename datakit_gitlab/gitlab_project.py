@@ -22,11 +22,15 @@ class GitlabProject:
         return len(self.client.projects.list(search=self.project_slug)) > 0
 
     def create(self):
-        proj = self.client.projects.create({
         grp = self.client.groups.list(search=self.namespace)[0]
+        proj_metadata = {
             'name': self.project_slug,
             'namespace_id': grp.id
-        })
+        }
+        proj = self.client.projects.create(
+            proj_metadata,
+            retry_transient_errors = True
+        )
         return proj
 
     def add_issue(self, opts):
