@@ -2,6 +2,11 @@
 History
 =======
 
+0.3.0
+-----
+
+* Upgrade to Gitlab API v4
+
 0.2.0
 -----
 

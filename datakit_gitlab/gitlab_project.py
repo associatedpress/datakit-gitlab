@@ -22,8 +22,8 @@ class GitlabProject:
         return len(self.client.projects.list(search=self.project_slug)) > 0
 
     def create(self):
-        grp = self.client.groups.get(self.namespace)
         proj = self.client.projects.create({
+        grp = self.client.groups.list(search=self.namespace)[0]
             'name': self.project_slug,
             'namespace_id': grp.id
         })
