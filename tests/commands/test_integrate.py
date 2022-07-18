@@ -46,8 +46,9 @@ def test_project_buildout(mocker, caplog, tmpdir):
         mocker.call(['git', 'init']),
         mocker.call(['git', 'add', '.']),
         mocker.call(['git', 'commit', '-m', 'Initial commit']),
+        mocker.call(['git', 'branch', '--move', 'main']),
         mocker.call(['git', 'remote', 'add', 'origin', 'git@gitlab.inside.ap.org:data/fake-project.git']),
-        mocker.call(['git', 'push', '-u', 'origin', 'master'])
+        mocker.call(['git', 'push', '-u', 'origin', 'main'])
     ]
     assert mock_subprocess.call_args_list == expected_git_calls
     alert_msg = 'Project created: \n\thttps://gitlab.inside.ap.org/data/fake-project'

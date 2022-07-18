@@ -19,6 +19,7 @@ class Git:
     @staticmethod
     def commit():
         subprocess.check_output(['git', 'commit', '-m', 'Initial commit'])
+        subprocess.check_output(['git', 'branch', '--move', 'main'])
 
     @staticmethod
     def remote_add_origin(repo_url):
