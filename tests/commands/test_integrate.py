@@ -1,3 +1,4 @@
+import logging
 from unittest import mock
 
 from ..conftest import read_fixture
@@ -9,10 +10,11 @@ import responses
 @responses.activate
 def test_project_buildout(mocker, caplog, tmpdir):
     "Integrate should auto-generate Gitlab project"
+    caplog.set_level(logging.DEBUG)
     # Mock search query to check if project already exists
     responses.add(
         responses.GET,
-        'https://gitlab.inside.ap.org/api/v3/projects/search/fake-project',
+        'https://gitlab.inside.ap.org/api/v4/projects?search=fake-project',
         body='[]',
         status=200,
         content_type='application/json'
@@ -20,7 +22,7 @@ def test_project_buildout(mocker, caplog, tmpdir):
     # Mock group API call`to group ID based on name
     responses.add(
         responses.GET,
-        'https://gitlab.inside.ap.org/api/v3/groups/data',
+        'https://gitlab.inside.ap.org/api/v4/groups?search=data',
         body=read_fixture('group_id_lookup'),
         status=200,
         content_type='application/json'
@@ -28,7 +30,7 @@ def test_project_buildout(mocker, caplog, tmpdir):
     # Mock project creation response
     responses.add(
         responses.POST,
-        'https://gitlab.inside.ap.org/api/v3/projects',
+        'https://gitlab.inside.ap.org/api/v4/projects',
         body=read_fixture('project_created-201'),
         status=201,
         content_type='application/json'
@@ -58,10 +60,11 @@ def test_project_buildout(mocker, caplog, tmpdir):
 @responses.activate
 def test_project_already_exists(caplog):
     "Integrate should fail if project of same name already exists on Gitlab"
+    caplog.set_level(logging.DEBUG)
     # Mock search query to check if project already exists
     responses.add(
         responses.GET,
-        'https://gitlab.inside.ap.org/api/v3/projects/search/fake-project',
+        'https://gitlab.inside.ap.org/api/v4/projects?search=fake-project',
         body=read_fixture('project_search-already_exists'),
         status=200,
         content_type='application/json'

@@ -16,14 +16,13 @@ from setuptools import setup, find_packages
 requirements = [
     'cliff',
     'datakit-core',
-    'python-gitlab>=2.5.0'
+    'python-gitlab>=3.6.0'
 ]
 
 test_requirements = [
     'pytest',
-    'pytest-catchlog',
     'pytest-mock==1.5.0',
-    'responses==0.5.1'
+    'responses==0.21.0'
 ]
 
 setup(
