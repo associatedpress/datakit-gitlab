@@ -13,6 +13,7 @@ class Add(ProjectMixin, CommandHelpers, Command):
         parser.add_argument(
             '-t',
             '--title',
+            required=True,
             help="Short title for Issue that must be wrapped in quotes"
         )
         return parser
