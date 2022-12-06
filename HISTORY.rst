@@ -2,6 +2,14 @@
 History
 =======
 
+0.5.1
+-----
+
+* Improve error messages for missing configs
+* Improve error messages for empty repo
+* Fix title requirement for `datakit gitlab add issue`
+* Rename default branch from "master" to "main"
+
 0.4.0
 -----
 
