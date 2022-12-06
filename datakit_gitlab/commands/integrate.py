@@ -13,6 +13,10 @@ class Integrate(CommandHelpers, Command):
     plugin_slug = 'datakit-gitlab'
 
     def take_action(self, parsed_args):
+        if not bool(self.configs):
+            msg = "ERROR: datakit-gitlab config not found!"
+            self.log.info(msg)
+            return
         proj_slug = self.get_project_slug()
         project = self.get_gitlab_project_client(proj_slug)
         if project.exists():
