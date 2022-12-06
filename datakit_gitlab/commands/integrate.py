@@ -17,6 +17,10 @@ class Integrate(CommandHelpers, Command):
             msg = "ERROR: datakit-gitlab config not found!"
             self.log.info(msg)
             return
+        if os.listdir() == ['.git'] or not bool(os.listdir()):
+            msg = "ERROR: Project is empty, nothing to commit"
+            self.log.info(msg)
+            return
         proj_slug = self.get_project_slug()
         project = self.get_gitlab_project_client(proj_slug)
         if project.exists():
