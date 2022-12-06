@@ -26,4 +26,4 @@ class Git:
 
     @staticmethod
     def push():
-        subprocess.check_output(['git', 'push', '-u', 'origin', 'master'])
+        subprocess.check_output(['git', 'push', '-u', 'origin', 'main'])
