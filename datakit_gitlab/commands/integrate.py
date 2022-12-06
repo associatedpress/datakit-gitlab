@@ -24,22 +24,22 @@ class Integrate(CommandHelpers, Command):
         proj_slug = self.get_project_slug()
         project = self.get_gitlab_project_client(proj_slug)
         if project.exists():
-            msg = "\nERROR: {} already exists on Gitlab!".format(proj_slug)
+            msg = "ERROR: {} already exists on Gitlab!".format(proj_slug)
             self.log.info(msg)
+            return
+        # Guard against re-initialization
+        if Git.is_repository() is False:
+            self.log.info("Running Git initialization...")
+            Git.init()
+            Git.add()
+            Git.commit()
         else:
-            # Guard against re-initialization
-            if Git.is_repository() is False:
-                self.log.info("Running Git initialization...")
-                Git.init()
-                Git.add()
-                Git.commit()
-            else:
-                self.log.info("Repo has already been initialized!")
-            resp = project.create()
-            Git.remote_add_origin(resp.ssh_url_to_repo)
-            Git.push()
-            alert_msg = 'Project created: \n\t{}'.format(resp.web_url)
-            self.log.info(alert_msg)
+            self.log.info("Git repo found, creating Gitlab project")
+        resp = project.create()
+        Git.remote_add_origin(resp.ssh_url_to_repo)
+        Git.push()
+        alert_msg = "Project created: \n\t{}".format(resp.web_url)
+        self.log.info(alert_msg)
 
     def get_project_slug(self):
         return os.path.basename(os.getcwd())
