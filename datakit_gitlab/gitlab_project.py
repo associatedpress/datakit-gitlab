@@ -19,7 +19,7 @@ class GitlabProject:
         )
 
     def exists(self):
-        return len(self.client.projects.list(search=self.project_slug)) > 0
+        return len(self.client.projects.list(search=self.project_slug, get_all=False)) > 0
 
     def create(self):
         grp = self.client.groups.list(search=self.namespace)[0]
