@@ -2,7 +2,7 @@
 
 __author__ = """Serdar Tumgoren"""
 __email__ = 'stumgoren@ap.org'
-__version__ = '0.5.1'
+__version__ = '0.5.2'
 
 from .commands.integrate import Integrate
 from .commands import issues
