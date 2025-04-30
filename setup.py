@@ -23,12 +23,12 @@ test_requirements = [
     'pytest',
     'pytest-catchlog',
     'pytest-mock==1.5.0',
-    'responses==0.5.2'
+    'responses==0.6.0'
 ]
 
 setup(
     name='datakit-gitlab',
-    version='0.5.2',
+    version='0.6.0',
     description="Commands to manage project integration with Gitlab.",
     long_description=__doc__,
     author="Serdar Tumgoren",
