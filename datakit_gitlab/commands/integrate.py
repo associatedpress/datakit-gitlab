@@ -36,7 +36,6 @@ class Integrate(CommandHelpers, Command):
         else:
             self.log.info("Git repo found, creating Gitlab project")
         resp = project.create()
-        self.log.info(dir(resp))
         Git.remote_add_origin(resp.ssh_url_to_repo)
         Git.push()
         alert_msg = "Project created: \n\t{}".format(resp.web_url)
