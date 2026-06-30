@@ -34,7 +34,7 @@ def test_add_issue(mocker, caplog, tmpdir):
         status=201,
         content_type='application/json'
     )
-    cmd = Add(None, None, cmd_name='gitlab issues add')
+    cmd = Add(None, None)
     parsed_args = mock.Mock()
     parsed_args.title = "Do some data stuff"
     cmd.run(parsed_args)
