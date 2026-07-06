@@ -5,12 +5,15 @@ from cliff.command import Command
 from datakit import CommandHelpers
 from datakit_gitlab.git import Git
 from datakit_gitlab.gitlab_project import GitlabProject
+from datakit_gitlab.project_mixin import GITLAB_CONFIG_SPEC
 
 
 class Integrate(CommandHelpers, Command):
     "Integrate local project code with Gitlab"
 
     plugin_slug = 'datakit-gitlab'
+
+    config_spec = GITLAB_CONFIG_SPEC
 
     def take_action(self, parsed_args):
         if not bool(self.configs):
@@ -46,17 +49,17 @@ class Integrate(CommandHelpers, Command):
 
     def get_gitlab_project_client(self, project_slug):
         configs = self.configs
-        if 'gitlab_url' not in configs.keys():
-            err_msg = "ERROR: datakit-gitlab config missing Gitlab URL!"
-            self.log.error(err_msg)
-            raise SystemExit
-        if 'default_namespace' not in configs.keys():
-            err_msg = "ERROR: datakit-gitlab config missing default namespace!"
-            self.log.error(err_msg)
-            raise SystemExit
-        if 'api_key' not in configs.keys():
-            err_msg = "ERROR: datakit-gitlab config missing API key!"
-            self.log.error(err_msg)
+        missing = [
+            field.name for field in self.config_spec
+            if field.required and not configs.get(field.name)
+        ]
+        if missing:
+            self.log.error(
+                "ERROR: datakit-gitlab config missing required keys: {}!".format(
+                    ", ".join(missing)
+                )
+            )
+            self.log.error("Run `datakit config init datakit-gitlab` to set them up.")
             raise SystemExit
         url = configs['gitlab_url']
         namespace = configs['default_namespace']
