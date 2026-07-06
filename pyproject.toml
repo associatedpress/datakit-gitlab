@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "datakit-gitlab"
-version = "0.6.0"
+version = "0.7.0"
 description = "Commands to manage project integration with GitLab."
 authors = [
     {name = "Larry Fenn", email = "lfenn@ap.org"},
