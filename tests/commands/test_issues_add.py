@@ -1,5 +1,8 @@
+import json
 import re
 from unittest import mock
+
+import pytest
 
 from ..conftest import read_fixture
 
@@ -7,9 +10,18 @@ from datakit_gitlab.commands.issues import Add
 import responses
 
 
+def test_parser_requires_title():
+    "--title is mandatory; omitting it is an argparse error"
+    parser = Add(None, None).get_parser('gitlab issues add')
+    assert parser.parse_args(['--title', 'A ticket']).title == 'A ticket'
+    with pytest.raises(SystemExit):
+        parser.parse_args([])
+
+
 @responses.activate
-def test_add_issue(mocker, caplog, tmpdir):
-    # Mock GET for project meta (assumged to already exist)
+def test_add_issue(caplog):
+    "Add creates an issue on the resolved project, assigned to the current user"
+    # The project is assumed to already exist on Gitlab.
     responses.add(
         responses.GET,
         'https://gitlab.inside.ap.org/api/v4/projects/data%2Ffake-project',
@@ -17,7 +29,7 @@ def test_add_issue(mocker, caplog, tmpdir):
         status=200,
         content_type='application/json'
     )
-    # Mock API call to get current user info
+    # `current_user_get` reports the authenticated user as id 284.
     responses.add(
         responses.GET,
         'https://gitlab.inside.ap.org/api/v4/user',
@@ -25,18 +37,20 @@ def test_add_issue(mocker, caplog, tmpdir):
         status=200,
         content_type='application/json'
     )
-    # Mock project creation response
-    post_re = re.compile(r'https://gitlab\.inside\.ap\.org/api/v4/projects/\d+/issues')
+    issue_creation = re.compile(r'https://gitlab\.inside\.ap\.org/api/v4/projects/\d+/issues')
     responses.add(
         responses.POST,
-        post_re,
+        issue_creation,
         body=read_fixture('issue_added_201'),
         status=201,
         content_type='application/json'
     )
-    cmd = Add(None, None)
     parsed_args = mock.Mock()
-    parsed_args.title = "Do some data stuff"
-    cmd.run(parsed_args)
-    assert re.search(r'Created issue #\d: https://gitlab.inside.ap.org/data/fake-project/issues/\d', caplog.text)
-    assert b'assignee_id' in responses.calls[2].request.body
+    parsed_args.title = "  Do some data stuff  "
+    Add(None, None).run(parsed_args)
+
+    posted = next(c for c in responses.calls if c.request.method == 'POST')
+    body = json.loads(posted.request.body)
+    assert body['title'] == 'Do some data stuff'
+    assert body['assignee_id'] == 284
+    assert 'Created issue #3: https://gitlab.inside.ap.org/data/fake-project/issues/3' in caplog.text

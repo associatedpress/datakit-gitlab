@@ -46,6 +46,13 @@ def create_plugin_config(dkit_home, project_name, content):
     return content
 
 
+@pytest.fixture
+def set_gitlab_config(dkit_home):
+    def _set(content):
+        return create_plugin_config(dkit_home, 'datakit-gitlab', content)
+    return _set
+
+
 def create_project_config(project_root, contents={}):
     config_dir = os.path.join(project_root, 'config')
     mkdir_p(config_dir)
