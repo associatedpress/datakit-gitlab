@@ -38,6 +38,11 @@ def test_project_buildout(mocker, caplog, tmpdir):
         'datakit_gitlab.git.subprocess.check_output',
         autospec=True,
     )
+    # Pin the detected default branch so the push target is deterministic
+    mocker.patch(
+        'datakit_gitlab.git.Git.default_branch',
+        return_value='master',
+    )
     cmd = Integrate(None, None)
     parsed_args = mock.Mock()
     cmd.run(parsed_args)

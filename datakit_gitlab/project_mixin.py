@@ -11,7 +11,7 @@ GITLAB_CONFIG_SPEC = [
                 help='Base URL of the GitLab instance (e.g. https://gitlab.com)'),
     ConfigField('default_namespace', required=True,
                 help='GitLab namespace (user or group) new projects are created under'),
-    ConfigField('api_key', required=True, secret=True,
+    ConfigField('api_key', required=True, secret=True, dedupe_prefix='glpat-',
                 help='GitLab personal access token (api scope)'),
 ]
 
