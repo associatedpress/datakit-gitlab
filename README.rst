@@ -16,24 +16,38 @@ Setup instructions
 ==================
 
 
-Assuming you have datakit_ installed, run the following to install the
-`datakit-gitlab` plugin::
+Install this plugin alongside datakit-core_. The recommended way is with uv_,
+which keeps the ``datakit`` command and its plugins in a single isolated
+environment::
 
-  $ pip install datakit-gitlab
+  $ uv tool install datakit-core --with datakit-gitlab
 
-Create a configuration file at ``~/.datakit/plugins/datakit-gitlab/config.json`` with the following structure::
+See the datakit-core_ docs for other ways to install and combine plugins.
 
-    {
-      "gitlab_url": "GITLAB_URL",
-      "default_namespace": "YOUR_NAMESPACE",
-      "api_key": "PERSONAL_ACCESS_TOKEN"
-    }
+Next, configure the plugin with the generic ``datakit config`` command family
+that ships with datakit-core_. The quickest way is to fill in every value
+interactively (the access token is entered hidden)::
 
-``GITLAB_URL`` is the URL of your Gitlab instance.
+  $ datakit config init datakit-gitlab
 
-``YOUR_NAMESPACE`` is your user name or the organization namespace.
+This prompts for three values:
 
-``PERSONAL_ACCESS_TOKEN`` is your Personal Access Token.
+``gitlab_url``
+  The base URL of your GitLab instance (e.g. ``https://gitlab.com``).
+
+``default_namespace``
+  Your user name or the organization namespace new projects are created under.
+
+``api_key``
+  Your GitLab Personal Access Token.
+
+You can also set an individual value, and check that the token authenticates::
+
+  $ datakit config set datakit-gitlab gitlab_url https://gitlab.com
+  $ datakit config verify datakit-gitlab
+
+``datakit config`` writes ``~/.datakit/plugins/datakit-gitlab/config.json`` for
+you, so there's no need to hand-edit that file.
 
 Gitlab Personal Access Tokens can be obtained under User Settings > Access Tokens. You will need to make a token with both api and sudo privileges. More information on Gitlab Personal Access Tokens can be found here: https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html
 
@@ -69,6 +83,8 @@ project template (a modified version of the most excellent `audreyr/cookiecutter
 
 .. _datakit-project: https://datakit-project.readthedocs.io/en/latest/
 .. _datakit: https://github.com/associatedpress/datakit-core
+.. _datakit-core: https://datakit-core.readthedocs.io/en/latest/
+.. _uv: https://docs.astral.sh/uv/
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`associatedpress/cookiecutter-datakit-plugin`: https://github.com/associatedpress/cookiecutter-datakit-plugin
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
