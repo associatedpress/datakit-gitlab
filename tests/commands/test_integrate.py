@@ -4,23 +4,30 @@ from ..conftest import read_fixture
 
 from datakit_gitlab import Integrate
 import responses
+from responses import matchers
 
 
 @responses.activate
 def test_project_buildout(mocker, caplog, tmpdir):
     "Integrate should auto-generate Gitlab project"
-    # Mock search query to check if project already exists
+    # Mock search query to check if project already exists. The v4 API passes
+    # the project name as a `search` query param, so match on it to assert we
+    # actually searched for `fake-project`.
     responses.add(
         responses.GET,
-        'https://gitlab.inside.ap.org/api/v3/projects/search/fake-project',
+        'https://gitlab.inside.ap.org/api/v4/projects',
+        match=[matchers.query_param_matcher({'search': 'fake-project'}, strict_match=False)],
         body='[]',
         status=200,
         content_type='application/json'
     )
-    # Mock group API call`to group ID based on name
+    # Mock group API call to resolve group ID based on name. Like the project
+    # search, v4 passes the namespace as a `search` query param, so match on it
+    # to assert we actually looked up the `data` group.
     responses.add(
         responses.GET,
-        'https://gitlab.inside.ap.org/api/v3/groups/data',
+        'https://gitlab.inside.ap.org/api/v4/groups',
+        match=[matchers.query_param_matcher({'search': 'data'}, strict_match=False)],
         body=read_fixture('group_id_lookup'),
         status=200,
         content_type='application/json'
@@ -28,7 +35,7 @@ def test_project_buildout(mocker, caplog, tmpdir):
     # Mock project creation response
     responses.add(
         responses.POST,
-        'https://gitlab.inside.ap.org/api/v3/projects',
+        'https://gitlab.inside.ap.org/api/v4/projects',
         body=read_fixture('project_created-201'),
         status=201,
         content_type='application/json'
@@ -65,7 +72,8 @@ def test_project_already_exists(caplog):
     # Mock search query to check if project already exists
     responses.add(
         responses.GET,
-        'https://gitlab.inside.ap.org/api/v3/projects/search/fake-project',
+        'https://gitlab.inside.ap.org/api/v4/projects',
+        match=[matchers.query_param_matcher({'search': 'fake-project'}, strict_match=False)],
         body=read_fixture('project_search-already_exists'),
         status=200,
         content_type='application/json'

@@ -12,7 +12,7 @@ def test_add_issue(mocker, caplog, tmpdir):
     # Mock GET for project meta (assumged to already exist)
     responses.add(
         responses.GET,
-        'https://gitlab.inside.ap.org/api/v3/projects/data%2Ffake-project',
+        'https://gitlab.inside.ap.org/api/v4/projects/data%2Ffake-project',
         body=read_fixture('project_get'),
         status=200,
         content_type='application/json'
@@ -20,13 +20,13 @@ def test_add_issue(mocker, caplog, tmpdir):
     # Mock API call to get current user info
     responses.add(
         responses.GET,
-        'https://gitlab.inside.ap.org/api/v3/user',
+        'https://gitlab.inside.ap.org/api/v4/user',
         body=read_fixture('current_user_get'),
         status=200,
         content_type='application/json'
     )
     # Mock project creation response
-    post_re = re.compile(r'https://gitlab\.inside\.ap\.org/api/v3/projects/\d+/issues/')
+    post_re = re.compile(r'https://gitlab\.inside\.ap\.org/api/v4/projects/\d+/issues')
     responses.add(
         responses.POST,
         post_re,
@@ -39,4 +39,4 @@ def test_add_issue(mocker, caplog, tmpdir):
     parsed_args.title = "Do some data stuff"
     cmd.run(parsed_args)
     assert re.search(r'Created issue #\d: https://gitlab.inside.ap.org/data/fake-project/issues/\d', caplog.text)
-    assert 'assignee_id' in responses.calls[2].request.body
+    assert b'assignee_id' in responses.calls[2].request.body
